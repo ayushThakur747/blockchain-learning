@@ -4,7 +4,7 @@ const { interface, bytecode } = require("./compile");
 const provider = new HDWalletProvider(
   "horn sister pony master canoe cool speak omit trim pull distance dice",
   "https://mainnet.infura.io/v3/7b05ff2186554359ae6d0570ff117028"
-);
+); 
 const web3 = new Web3(provider);
 
 const deploy = async () => {
