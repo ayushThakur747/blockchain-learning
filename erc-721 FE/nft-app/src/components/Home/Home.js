@@ -8,13 +8,15 @@ import {
 } from "../../actions/Web3Actions";
 import web3 from "../../web3";
 function Home() {
-  const address = "0xF57D7b8fc5A36f9062c98f513BD69a454803B09d";
+  const address = "0xaB16A056B7173aF14f3E086a8c64DBF72b1eb326";
   const [walletData, setWalletData] = useState({
     wallet: false,
     chainId: "not found",
     address: "Unavailable",
     balance: "0",
   });
+  const [contractOwner, setContractOwner] = useState("");
+  const [tokenURI, setTokenURI] = useState("");
 
   const contract = new web3.eth.Contract(MyNFT_ABI, address); //contract instance through web3
 
@@ -31,17 +33,25 @@ function Home() {
       address: address,
       balance: balance,
     });
-
+    const owner = await contract.methods.owner().call();
+    setContractOwner(owner);
+    console.log("owner>>>>>>", owner, contractOwner);
     console.log("walletdata>>> ", walletData.wallet);
     const totalSupply = await contract.methods.totalSupply().call(); //calling function on smart contract
     console.log("total supply>>>>>> ", totalSupply);
   }
 
-  const mintNFT = () => {
+  const mintNFT = (e) => {
+    e.preventDefault();
+    console.log("mintnft>>>", walletData.address, tokenURI);
     contract.methods
-      .safeMint(walletData.address)
+      .safeMint(walletData.address, tokenURI)
       .send({ from: walletData.address, value: "10000000000000001" }); //sending transaction on smart contract
     return;
+  };
+
+  const withdrawContractFunds = async () => {
+    contract.methods.withdraw().send({ from: walletData.address });
   };
 
   return (
@@ -58,7 +68,19 @@ function Home() {
           </div>
           <div>
             <p>You can mint your own NFT here..</p>
-            <button onClick={mintNFT}>Mint</button>
+            <form onSubmit={() => mintNFT()}>
+              <input
+                type="text"
+                onChange={(e) => setTokenURI(e.target.value)}
+                placeholder="URI"
+              />
+              <button onClick={(e) => mintNFT(e)}>Mint</button>
+            </form>
+          </div>
+          <div>
+            {walletData.address === contractOwner.toLocaleLowerCase() ? (
+              <button onClick={() => withdrawContractFunds()}>withdraw</button>
+            ) : null}
           </div>
         </div>
       ) : (
