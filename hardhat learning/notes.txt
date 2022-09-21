@@ -1,0 +1,46 @@
+Hardhat playlist by code-eater YT
+Notes: 
+
+"npm init" :- initilize node project
+"npm install --save-dev hardhat"   :- install hardhat
+"npx hardhat" :-
+    select "hardhat.config.js" :- 
+        will create config file for harhat
+        we can choose which compiler to use for solidity 
+
+create folder structur :- (contracts, script, test)
+intsalling dependcy for test environment :-
+    npm install --save-dev @nomiclabs/hardhat-ethers ethers @nomiclabs/hardhat-waffle ethereum-waffle chai
+
+"npx harhat compile" :- 
+    will compile the contract present in current directory 
+    make sure you are in correct directory
+    after compilation harhat will generate artifacts folder- that will containt the compiled information of contract (ex- ABI)
+
+to test smart contracts :-
+    import expect from chai 
+    listed(describe, it) are basic nodejs method for testing:
+    "describe" method :- 
+        describe("description", callback fn)
+        this bundles test cases
+        test cases will come under call back fn
+    "it" method :-
+        it("description", callback)
+        in call back we write the logic and then expect the expected output, using -
+    "expect" method :-
+        example
+        expect(await hardhatToken.totalSupply()).to.equal(ownerBalance); //according to your logic and condition 
+
+    NOTE-
+        -before every test case we should have deployed the contract in order to get its instance
+        -we can use beforeEach(()=>{}) method, to execute commen part in before any test case
+        -use ethers library to get accounts, can be used for deploying contract and pay gas
+        (
+            beforeEach(async function () {
+                [owner, user1, user2] = await ethers.getSigners();
+                Token = await ethers.getContractFactory("Token");
+                hardhatToken = await Token.deploy();
+            });
+        )
+    
+
