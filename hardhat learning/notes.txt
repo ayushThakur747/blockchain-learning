@@ -29,7 +29,13 @@ to test smart contracts :-
         in call back we write the logic and then expect the expected output, using -
     "expect" method :-
         example
-        expect(await hardhatToken.totalSupply()).to.equal(ownerBalance); //according to your logic and condition 
+        expect(await hardhatToken.totalSupply()).to.equal(ownerBalance); //according to your logic and condition
+    "expect().toBeRevertedWith("message")" :-
+        to validate revert condition
+        example:
+         await expect(
+            hardhatToken.connect(user1).transfer(user2.address, "10000") //from user1 to user2, doubt?? how can we tranfer from user1 as we do not own it or we do?
+        ).to.be.revertedWith("Not enough balance");
 
     NOTE-
         -before every test case we should have deployed the contract in order to get its instance
@@ -42,5 +48,29 @@ to test smart contracts :-
                 hardhatToken = await Token.deploy();
             });
         )
+
+debugging in hardhat-
+    import "hardhat/console.sol" :-
+        using this hardhat library we can run javascript code in solydity smart contract
+    we can write "console.log()" in function and run these function when testing contract
+    
+deploying contract-
+    - create instance of the contract and use .deploy method to deploy
+        example-
+        const Token = await ethers.getContractFactory("Token");
+        const token = await Token.deploy();
+    contract will deploy according to harhat config,
+    -to deploy on ropsten, 
+        add network details in hardhat config
+            networks: {
+                ropsten: {
+                url: `https://eth-ropsten.alchemyapi.io/v2/${ALCHEMY_API_KEY}`,
+                accounts: [`${ROPSTEN_PRIVATE_KEY}`],
+                },
+            }
+    -run cli:- npx harhat deploy.js --network ropsten
+
+
+
     
 
