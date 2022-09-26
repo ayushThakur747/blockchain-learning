@@ -26,7 +26,7 @@ describe("Token contract", function () {
   describe("Transfer Test", function () {
     it("Should fail to transfer (do not have enough balance)", async function () {
       await expect(
-        hardhatToken.connect(user1).transfer(user2.address, "10000") //from user1 to user2, doubt?? how can we tranfer from user1 as we do not own it or we do?
+        hardhatToken.connect(user1).a(user2.address, "10000") //from user1 to user2, doubt?? how can we tranfer from user1 as we do not own it or we do?
       ).to.be.revertedWith("Not enough balance");
     });
 
