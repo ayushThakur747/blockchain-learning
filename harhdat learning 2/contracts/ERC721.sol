@@ -14,7 +14,8 @@ contract ATNFT is ERC721URIStorage, Ownable {
     }
 
     function mint(string memory _tokenURI) external payable returns(uint256) {
-        require(msg.value > 0.5 ether, "0.5 eth is required to mint.");
+        require(!isContract(msg.sender), "msg.sender is not a externally owned wallet");//how to test this
+        require(msg.value == 0.5 ether, "0.5 eth is required to mint.");
         supply.increment();
 
         uint256 tokenId = supply.current();
@@ -23,6 +24,14 @@ contract ATNFT is ERC721URIStorage, Ownable {
         _setTokenURI(tokenId, _tokenURI);
 
         return tokenId;
+    }
+
+    function isContract(address _address) view public returns (bool isSmartContract){
+        uint32 size;
+        assembly {
+            size := extcodesize(_address)
+        }
+        return (size > 0);//Warning: will return false if the call is made from the constructor of a smart contract
     }
 
 }
