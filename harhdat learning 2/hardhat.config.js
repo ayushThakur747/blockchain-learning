@@ -2,10 +2,11 @@
 
 require("dotenv").config();
 require("@nomiclabs/hardhat-ethers"); 
-console.log(process.env.API_URL, `0x${process.env.PRIVATE_KEY}` )
+require("@nomicfoundation/hardhat-chai-matchers");
+
 module.exports = {
   solidity: "0.8.17",
-  defaultNetwork: "goerli",
+  defaultNetwork: "localhost",
   networks:{
     hardhat: {},
     goerli: {
