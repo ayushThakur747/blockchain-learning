@@ -47,3 +47,17 @@ contract ATNFT is ERC721URIStorage, Ownable {
     //soldity extensions installed
     //extensions settup with prettier
 }
+
+contract Testing {
+    ATNFT tokenContract;
+
+    constructor(address _contractAddress) {
+        tokenContract = ATNFT(payable(_contractAddress));
+    }
+
+    receive() external payable {}
+
+    function callMint() public payable {
+        tokenContract.mint(" ");
+    }
+}
