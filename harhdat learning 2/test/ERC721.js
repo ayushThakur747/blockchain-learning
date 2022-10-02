@@ -12,13 +12,12 @@ describe("ERC721 contract", () => {
       erc721Contract = await ethers.getContractFactory("ATNFT");
       deployedContract = await erc721Contract.deploy();
       await deployedContract.deployed();
-      console.log("15>>>>>", deployedContract.address);
+
       testingContract = await ethers.getContractFactory("Testing");
       testingDeployedContract = await testingContract.deploy(
         deployedContract.address
       );
-      await testingDeployedContract.deployed(deployedContract.address);
-      console.log("21>>>>>", testingDeployedContract.address);
+      await testingDeployedContract.deployed();
     });
 
     it("at deployment verify name", async () => {
@@ -51,7 +50,7 @@ describe("ERC721 contract", () => {
       });
       await expect(
         deployedContract.mint("", { value: "500000000000000000" })
-      ).to.equal(1);
+      ).to.equal(2);
     });
 
     it("should revert when called from contract", async () => {

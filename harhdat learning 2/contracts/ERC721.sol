@@ -20,7 +20,7 @@ contract ATNFT is ERC721URIStorage, Ownable {
         require(
             !isContract(msg.sender),
             "msg.sender is not a externally owned wallet"
-        ); //how to test this
+        );
         require(msg.value == 0.5 ether, "0.5 eth is required to mint.");
         supply.increment();
 
@@ -42,10 +42,7 @@ contract ATNFT is ERC721URIStorage, Ownable {
             size := extcodesize(_address)
         }
         return (size > 0); //Warning: will return false if the call is made from the constructor of a smart contract
-    } //msg.sender.code.length
-
-    //soldity extensions installed
-    //extensions settup with prettier
+    }
 }
 
 contract Testing {

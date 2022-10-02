@@ -71,6 +71,24 @@ deploying contract-
     -run cli:- npx harhat deploy.js --network ropsten
 
 
+>>>>>>>>>>>>> 
+task-1
 
+==>>methods to find if the caller is contract 
+1. msg.sender.code.length
+2. function isContract(address _address)
+        public
+        view
+        returns (bool isSmartContract)
+    {
+        uint32 size;
+        assembly {
+            size := extcodesize(_address)
+        }
+        return (size > 0); //Warning: will return false if the call is made from the constructor of a smart contract
+    } 
+
+==>>how to generate code coverage in hardhat
+https://medium.com/coinmonks/smart-contract-code-coverage-in-hardhat-d4a5ff6c9ba6#:~:text=Add%20solidity%2Dcoverage%20to%20hardhat,required%20inside%20your%20hardhat%20configuration.&text=Congratulations%20%F0%9F%99%8C%20from%20the%20screenshot,run%20code%20coverage%20for%20Greeter.
     
 

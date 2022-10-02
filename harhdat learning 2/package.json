@@ -19,6 +19,8 @@
   "dependencies": {
     "@alch/alchemy-web3": "^1.1.8",
     "@openzeppelin/contracts": "^4.3.3",
-    "dotenv": "^10.0.0"
+    "dotenv": "^10.0.0",
+    "ganache-cli": "^6.12.2",
+    "solidity-coverage": "^0.8.2"
   }
 }

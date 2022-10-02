@@ -3,6 +3,7 @@
 require("dotenv").config();
 require("@nomiclabs/hardhat-ethers");
 require("@nomicfoundation/hardhat-chai-matchers");
+require("solidity-coverage");
 
 module.exports = {
   solidity: "0.8.17",
